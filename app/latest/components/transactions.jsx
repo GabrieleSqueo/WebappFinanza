@@ -1,6 +1,8 @@
 "use client"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
+import { useRouter } from "next/navigation";
+
 
 // Initialize Supabase client
 const supabase = createClient(
@@ -8,12 +10,43 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
 
+
 const Transactions = () => {
-  const [type, setType] = useState("income");
+  const router = useRouter();
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      console.log(user)
+      if (!user) {
+        router.push("/login"); // Redirect to login if not logged in
+      }
+    };
+    checkUser();
+  }, []);
+
+  
+
+  const [type, setType] = useState("Income");
+  const [typeBool, setTypeBool] = useState(true);
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [user, setUser] = useState(null);
+
+  // Prendi l'utente loggato
+  useEffect(() => {
+    const getUser = async () => {
+      const { data: { user }, error } = await supabase.auth.getUser();
+      if (error) {
+        setError("Error fetching user: " + error.message);
+      } else {
+        setUser(user);
+      }
+    };
+    getUser();
+  }, []);
 
   const handleSaveTransaction = async (e) => {
     e.preventDefault();
@@ -25,9 +58,12 @@ const Transactions = () => {
       return;
     }
 
+    if (type === "Income") {
+      setTypeBool(false)
+    }
     const { error } = await supabase
       .from("transactions")
-      .insert([{ type, amount: parseFloat(amount), description }]);
+      .insert([{ type: typeBool, amount: parseFloat(amount), description, userid: user.id }]);
 
     if (error) {
       setError("Error saving transaction: " + error.message);
