@@ -1,7 +1,6 @@
 "use client"
 import { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
-import { useRouter } from "next/navigation";
 
 
 // Initialize Supabase client
@@ -12,20 +11,6 @@ const supabase = createClient(
 
 
 const Transactions = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    const checkUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      console.log(user)
-      if (!user) {
-        router.push("/login"); // Redirect to login if not logged in
-      }
-    };
-    checkUser();
-  }, []);
-
-  
 
   const [type, setType] = useState("Income");
   const [typeBool, setTypeBool] = useState(true);
