@@ -28,11 +28,10 @@ const Latest = () => {
   }, []);
 
   return (
-    <div>
+    <main className='bg-gray-100'>
       <Graphs userId={data.id}/>
-      <Link href="/tables"> Tabelle entrate ed uscite </Link>
       <Transactions />
-    </div>
+    </main>
     
     
   )

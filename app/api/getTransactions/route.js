@@ -10,8 +10,6 @@ export async function GET(req) {
     const { searchParams } = new URL(req.url);
     const user_id = searchParams.get('user_id');
     
-    console.log('Received user_id:', user_id);
-
     if (!user_id) {
       console.log('No user_id provided');
       return new Response(JSON.stringify({ error: "User ID is required" }), {
@@ -19,10 +17,6 @@ export async function GET(req) {
         headers: { 'Content-Type': 'application/json' },
       });
     }
-
-    console.log('Supabase URL exists:', !!process.env.NEXT_PUBLIC_SUPABASE_URL);
-    console.log('Supabase Key exists:', !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
-
     // Fetch transactions from Supabase
     const { data, error } = await supabase
       .from("transactions")

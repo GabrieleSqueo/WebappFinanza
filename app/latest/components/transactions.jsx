@@ -16,6 +16,7 @@ const Transactions = () => {
   const [typeBool, setTypeBool] = useState(true);
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
+  const [date, setDate] = useState()
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [user, setUser] = useState(null);
@@ -48,7 +49,7 @@ const Transactions = () => {
     }
     const { error } = await supabase
       .from("transactions")
-      .insert([{ type: typeBool, amount: parseFloat(amount), description, userid: user.id }]);
+      .insert([{ type: typeBool, amount: parseFloat(amount), description, userid: user.id, date: date }]);
 
     if (error) {
       setError("Error saving transaction: " + error.message);
@@ -56,11 +57,12 @@ const Transactions = () => {
       setSuccess("Transaction saved successfully!");
       setAmount("");
       setDescription("");
+      setDate("");
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-full my-8 ">
       <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-center text-gray-800">
           Add a Transaction
@@ -92,6 +94,20 @@ const Transactions = () => {
               className="w-full px-4 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700">
+              Date
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              placeholder="Enter date"
+              required
+              className="w-full px-4 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500"
+            />
+            </label>
+          </div>
+          
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">
               Description (Optional)
