@@ -1,19 +1,8 @@
 "use client"
 import { useEffect, useState } from "react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import LineCharts from "./linecharts";
+import BarCharts from "./barcharts";
 
-
-function CustomTooltip({ payload, label, active }) {
-  if (active) {
-    return (
-      <div className="custom-tooltip">
-        <p className="desc">{`${payload[0].value}`}</p>
-      </div>
-    );
-  }
-
-  return null;
-}
 
 const Graphs = ({ userId }) => {
   const [transactions, setTransactions] = useState(undefined);
@@ -38,6 +27,7 @@ const Graphs = ({ userId }) => {
         console.log('Raw response:', text);
         const data = text ? JSON.parse(text) : [];
         setTransactions(data);
+        
 
       } catch (err) {
         console.error("Error fetching transactions:", err);
@@ -62,24 +52,10 @@ const Graphs = ({ userId }) => {
       <h1 className="text-center text-5xl">Transazioni utente</h1>
       
       {transactions ?
-        <div className="flex flex-col">
-            <LineChart width={730} height={250} data={transactions.filter(item => item.type).sort((a,b) => a.date > b.date ?  1 : -1)} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="date" />
-              <YAxis dataKey="amount"/>
-              <Tooltip content={<CustomTooltip />}/>
-              <Legend />
-              <Line type="linear" dataKey="amount" stroke="green" strokeDasharray="5 2"/>
-            </LineChart>
-            <LineChart width={730} height={250} data={transactions.filter(item => !item.type)} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="date" />
-              <YAxis dataKey="amount"/>
-              <Tooltip content={<CustomTooltip />}/>
-              <Legend />
-              <Line type="linear" dataKey="amount" stroke="red" strokeDasharray="5 2"/>
-            </LineChart>
-          </div>
+        <div className="flex flex-col mx-auto">
+            <LineCharts transactions={transactions}/>
+            <BarCharts transactions={transactions}/>
+        </div>  
       : <p>Loading</p>
       }
       

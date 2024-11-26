@@ -9,7 +9,7 @@ const Home = () => {
         </h1>
       </header>
 
-      <main className="flex flex-col items-center justify-center flex-1 px-4 text-center">
+      <div className="flex flex-col items-center justify-center flex-1 px-4 text-center">
         <h2 className="text-2xl font-semibold text-gray-800">
           Take Control of Your Finances
         </h2>
@@ -20,22 +20,18 @@ const Home = () => {
         </p>
 
         <div className="flex mt-8 space-x-4">
-          <Link href="/login">
-            <p className="px-6 py-3 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <Link href="/login" className="px-6 py-3 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
               Login
-            </p>
           </Link>
-          <Link href="/signin">
-            <p className="px-6 py-3 text-blue-600 border border-blue-600 rounded-md hover:bg-blue-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <Link href="/signin" className="px-6 py-3 text-blue-600 border border-blue-600 rounded-md hover:bg-blue-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
               Sign Up
-            </p>
           </Link>
         </div>
-      </main>
+      </div>
 
       <footer className="w-full py-4 bg-gray-200">
         <p className="text-sm text-gray-500 text-center">
-          © {new Date().getFullYear()} MyFinanceBuddy. All rights reserved.
+          Sara Renzullo, Gabriele Squeo, Costantina Pesce
         </p>
       </footer>
     </div>

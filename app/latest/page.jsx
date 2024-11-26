@@ -13,8 +13,9 @@ const supabase = createClient(
 );
 
 const Latest = () => {
-  const router = useRouter
+  const router = useRouter()
   const [data, setData] = useState([])
+
   useEffect(() => {
     const checkUser = async () => {
       const { data: { user } } = await supabase.auth.getUser();
