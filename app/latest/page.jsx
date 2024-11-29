@@ -29,7 +29,7 @@ const Latest = () => {
   }, []);
 
   return (
-    <main className='bg-gray-100'>
+    <main className='bg-gray-100 min-h-screen'>
       <Graphs userId={data.id}/>
       <Transactions />
     </main>

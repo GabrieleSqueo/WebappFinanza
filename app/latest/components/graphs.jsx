@@ -5,7 +5,7 @@ import BarCharts from "./barcharts";
 
 
 const Graphs = ({ userId }) => {
-  const [transactions, setTransactions] = useState(undefined);
+  const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -45,18 +45,18 @@ const Graphs = ({ userId }) => {
     }
   }, [userId]);
 
-  if (loading) return <p>Loading transactions...</p>;
+  if (loading) return <span className="loading loading-spinner loading-sm"></span>;
 
   return (
     <div className="min-h-72">
       <h1 className="text-center text-5xl">Transazioni utente</h1>
       
-      {transactions ?
+      {transactions && transactions.length>0 ?
         <div className="flex flex-col mx-auto">
             <LineCharts transactions={transactions}/>
             <BarCharts transactions={transactions}/>
         </div>  
-      : <p>Loading</p>
+      : <h1 className="text-center text-5xl py-10 italic underline"> Inserisci qua sotto la tua prima transazione</h1>
       }
       
     </div>
