@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Transactions from './components/transactions'
 import { createClient } from "@supabase/supabase-js";
 import {useRouter} from 'next/navigation'
+import Navbar from './components/navbar'
 
 // Initialize Supabase client
 const supabase = createClient(
@@ -30,8 +31,12 @@ const Latest = () => {
 
   return (
     <main className='bg-gray-100 min-h-screen'>
-      <Graphs userId={data.id}/>
+      <Navbar userId={data.id}/>
+      {data &&
+        <Graphs userId={data.id}/>
+      }
       <Transactions />
+      <Link href="./transactionsTable"> Vai alle transazioni</Link>
     </main>
     
     

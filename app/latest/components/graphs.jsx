@@ -24,7 +24,6 @@ const Graphs = ({ userId }) => {
         }
         
         const text = await res.text();
-        console.log('Raw response:', text);
         const data = text ? JSON.parse(text) : [];
         setTransactions(data);
         
