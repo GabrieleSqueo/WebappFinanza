@@ -1,11 +1,33 @@
-import React from 'react'
+import {React} from 'react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 function CustomTooltip({ payload, active }) {
+  let category = ""
     if (active) {
+      switch (payload[0].payload.category) {
+        case 1:
+          category = "Alimenti" 
+          break;
+        case 2:
+          category = "Famiglia"
+          break;
+        case 3:
+          category = "Vestiti"
+          break;
+        case 4:
+          category = "Svago"
+          break;
+        case 5:
+          category = "Istruzione"
+          break;
+        default:
+          category = "Nessuna"
+          break;
+      } 
       return (
         <div className="custom-tooltip">
           <p className="desc">{`${payload[0].value}`}</p>
+          <p className='desc'>{`Categoria: ${category}`}</p>
         </div>
       );
     }

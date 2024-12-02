@@ -2,30 +2,40 @@ import {React, useState} from 'react'
 import {BarChart, Bar, Rectangle, CartesianGrid, XAxis, YAxis, Tooltip, Legend} from "recharts"
 
 function sumAmountsByMonth(transactions) {
-    // Create a map to store sums by month
     const sumsByMonth = {};
   
-    transactions.filter(item => item.type).forEach((transaction) => {
+    transactions.forEach((transaction) => {
       const date = new Date(transaction.date);
-      const monthYear = `${date.getFullYear()}-${date.getMonth() + 1}`; // e.g., "2024-11"
+      const monthYear = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
   
-      // Add the amount to the corresponding month
       if (!sumsByMonth[monthYear]) {
-        sumsByMonth[monthYear] = 0;
+        sumsByMonth[monthYear] = {
+          income: 0,
+          expenses: 0
+        };
       }
-      sumsByMonth[monthYear] += transaction.amount;
+      
+      if (transaction.type) {
+        sumsByMonth[monthYear].income += transaction.amount;
+      } else {
+        sumsByMonth[monthYear].expenses += transaction.amount;
+      }
     });
-    return Object.entries(sumsByMonth).map(([month, total]) => ({
+    
+    return Object.entries(sumsByMonth).map(([month, values]) => ({
         month,
-        total,
-    })).sort((a,b) => a.date > b.date ?  1 : -1);
+        income: values.income,
+        expenses: values.expenses
+    })).sort((a, b) => {
+        const [yearA, monthA] = a.month.split('-');
+        const [yearB, monthB] = b.month.split('-');
+        return new Date(yearA, monthA - 1) - new Date(yearB, monthB - 1);
+    });
 }
 
 const BarCharts = ({transactions}) => {
     const result = sumAmountsByMonth(transactions);
     
-
-    console.log(result)
     return (
         <div className='mx-auto'>
             <BarChart
@@ -41,10 +51,11 @@ const BarCharts = ({transactions}) => {
             >
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="month" />
-              <YAxis dataKey="total"/>
+              <YAxis />
               <Tooltip />
               <Legend />
-              <Bar dataKey="total" fill="green" activeBar={<Rectangle fill="green" stroke="black" />} />
+              <Bar dataKey="income" fill="green" activeBar={<Rectangle fill="green" stroke="black" />} />
+              <Bar dataKey="expenses" fill="red" activeBar={<Rectangle fill="red" stroke="black" />} />
             </BarChart>
         </div>
     )

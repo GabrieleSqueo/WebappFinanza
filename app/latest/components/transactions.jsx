@@ -13,10 +13,12 @@ const supabase = createClient(
 const Transactions = () => {
 
   const [type, setType] = useState("Income");
-  const [typeBool, setTypeBool] = useState(true);
+
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
-  const [date, setDate] = useState()
+  const [category, setCategory] = useState("");
+
+  const [date, setDate] = useState(Date)
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [user, setUser] = useState(null);
@@ -43,13 +45,42 @@ const Transactions = () => {
       setError("Please enter a valid amount.");
       return;
     }
+    
+    let typeBool = true;  // Set default value
+    let categoryInt = 0;  // Set default value
 
-    if (type === "Income") {
-      setTypeBool(false)
+    switch (type) {
+      case "Income":
+        typeBool = true;
+        break;
+      case "Expense":
+        typeBool = false;
+        break;
+      default:
+        console.warn(`Unexpected type value: ${type}`); // Add logging for debugging
     }
+
+    if (category === "Alimenti") {
+      categoryInt = 1;
+    } else if (category === "Famiglia") {
+      categoryInt = 2;
+    } else if (category === "Vestiti") {
+      categoryInt = 3;
+    } else if (category === "Svago") {
+      categoryInt = 4;
+    } else if (category === "Istruzione") {
+      categoryInt = 5;
+    } else if (category === "Nessuna") {
+      categoryInt = null;
+    } else {
+      console.warn(`Unexpected category value: ${category}`); // Add logging for debugging
+    }
+
+    console.log(typeBool + " " + categoryInt)
+
     const { error } = await supabase
       .from("transactions")
-      .insert([{ type: typeBool, amount: parseFloat(amount), description, userid: user.id, date: date }]);
+      .insert([{ type: typeBool, amount: parseFloat(amount), description, userid: user.id, date: date, category: categoryInt}]);
 
     if (error) {
       setError("Error saving transaction: " + error.message);
@@ -58,6 +89,7 @@ const Transactions = () => {
       setAmount("");
       setDescription("");
       setDate("");
+      setCategory("")
     }
   };
 
@@ -77,8 +109,8 @@ const Transactions = () => {
               onChange={(e) => setType(e.target.value)}
               className="w-full px-4 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500"
             >
-              <option value="income">Income</option>
-              <option value="expense">Expense</option>
+              <option value="Income">Income</option>
+              <option value="Expense">Expense</option>
             </select>
           </div>
           <div className="mb-4">
@@ -119,6 +151,19 @@ const Transactions = () => {
               placeholder="Enter a description"
               className="w-full px-4 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500"
             />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700">
+              Categoria (Optional)
+            </label>
+            <select onChange={(e) => setCategory(e.target.value)} value={category} name="selectedVegetable" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+              <option id="0" value="Nessuna">Nessuna</option>
+              <option id="1" value="Alimenti">Alimenti</option>
+              <option id="2" value="Famiglia">Famiglia</option>
+              <option id="3" value="Vestiti">Vestiti</option>
+              <option id="4" value="Svago">Svago</option>
+              <option id="5" value="Istruzione">Istruzione</option>
+            </select>
           </div>
           <button
             type="submit"
