@@ -92,7 +92,6 @@ const UserTransactions = () => {
                   {transaction.type ? "Income" : "Expense"}
                 </td>
                 <td className="px-4 py-2 border-b text-center">
-                  {transaction.category} || "-"
                 </td>
                 <td className="px-4 py-2 border-b text-center">
                   {transaction.amount} €
@@ -102,6 +101,7 @@ const UserTransactions = () => {
                 </td>
                 <td className="px-4 py-2 border-b text-center">
                   {transaction.description || "-"}
+                  {transaction.category} || 
                 </td>
                 <td className="px-4 py-2 border-b text-center">
                   <button
