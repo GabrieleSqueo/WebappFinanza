@@ -25,8 +25,8 @@ function CustomTooltip({ payload, active }) {
           break;
       } 
       return (
-        <div className="custom-tooltip">
-          <p className="desc">{`${payload[0].value}`}</p>
+        <div className="custom-tooltip bg-white border-gray-300 border p-2">
+          <p className="desc">{`Totale: ${payload[0].value}€`}</p>
           <p className='desc'>{`Categoria: ${category}`}</p>
         </div>
       );

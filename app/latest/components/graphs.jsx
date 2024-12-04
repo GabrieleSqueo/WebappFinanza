@@ -48,7 +48,7 @@ const Graphs = ({ userId }) => {
 
   return (
     <div className="min-h-72">
-      <h1 className="text-center text-5xl">Transazioni utente</h1>
+      <h1 className="text-center text-5xl py-4">Transazioni utente</h1>
       
       {transactions && transactions.length>0 ?
         <div className="flex flex-col mx-auto">
