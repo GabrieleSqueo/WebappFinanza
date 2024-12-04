@@ -44,7 +44,7 @@ const Graphs = ({ userId }) => {
     }
   }, [userId]);
 
-  if (loading) return <span className="loading loading-spinner loading-sm"></span>;
+  if (loading) return <span className="flex flex-col text-center text-5xl py-10 italic underline mx-auto">Attendi un secondo...</span>;
 
   return (
     <div className="min-h-72">
@@ -55,7 +55,7 @@ const Graphs = ({ userId }) => {
             <LineCharts transactions={transactions}/>
             <BarCharts transactions={transactions}/>
         </div>  
-      : <h1 className="text-center text-5xl py-10 italic underline"> Inserisci qua sotto la tua prima transazione</h1>
+      : !loading && <h1 className="text-center text-5xl py-10 italic underline"> Inserisci qua sotto la tua prima transazione</h1>
       }
       
     </div>

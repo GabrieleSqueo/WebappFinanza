@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import Navbar from "./components/navbarTransactions";
+import SaldoChart from "./components/saldoChart"
 
 // Inizializza il client di Supabase
 const supabase = createClient(
@@ -16,6 +17,7 @@ const UserTransactions = () => {
   const userId  = pathname.split("/")[2];
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
+  let saldo = 0;
 
   useEffect(() => {
     console.log("ciao")
@@ -68,7 +70,7 @@ const UserTransactions = () => {
     <div className="container mx-auto p-4">
       
       <h1 className="text-2xl font-bold mb-4">
-        Transactions for User
+        Transazioni
       </h1>
 
       {transactions.length === 0 ? (
@@ -82,16 +84,18 @@ const UserTransactions = () => {
               <th className="px-4 py-2 border-b text-center">Amount</th>
               <th className="px-4 py-2 border-b text-center">Date</th>
               <th className="px-4 py-2 border-b text-center">Description</th>
-              <th className="px-4 py-2 border-b text-center">Actions</th>
+              <th className="px-4 py-2 border-b text-center">Saldo</th>
+              <th className="px-4 py-2 border-b text-center"></th>
             </tr>
           </thead>
           <tbody>
-            {transactions.map((transaction) => (
+            {transactions.sort((a,b) => a.date > b.date ?  1 : -1).map((transaction) => (
               <tr key={transaction.id}>
                 <td className="px-4 py-2 border-b text-center">
                   {transaction.type ? "Income" : "Expense"}
                 </td>
                 <td className="px-4 py-2 border-b text-center">
+                  {transaction.category === 1 ? "Alimenti" : transaction.category===2 ? "Famiglia": transaction.category=== 3 ? "Vestiti" : transaction.category===4 ?"Svago" : transaction.category===5 ?"Istruzione": "Nessuna"}
                 </td>
                 <td className="px-4 py-2 border-b text-center">
                   {transaction.amount} €
@@ -101,7 +105,9 @@ const UserTransactions = () => {
                 </td>
                 <td className="px-4 py-2 border-b text-center">
                   {transaction.description || "-"}
-                  {transaction.category} || 
+                </td>
+                <td className="px-4 py-2 border-b text-center">
+                  {transaction.type === true ? saldo += transaction.amount : saldo -= transaction.amount}€
                 </td>
                 <td className="px-4 py-2 border-b text-center">
                   <button
@@ -111,12 +117,14 @@ const UserTransactions = () => {
                     Delete
                   </button>
                 </td>
+                
               </tr>
             ))}
           </tbody>
         </table>
       )}
     </div>
+    <SaldoChart transactions={transactions}/>
     </div>
   );
 };
