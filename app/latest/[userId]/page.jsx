@@ -124,7 +124,10 @@ const UserTransactions = () => {
         </table>
       )}
     </div>
-    <SaldoChart transactions={transactions}/>
+    {transactions && transactions.length>0 ?
+      <SaldoChart transactions={transactions}/> :
+      <p className="text-center text-5xl py-10 italic underline">Non ci sono transazioni</p>
+    }
     </div>
   );
 };

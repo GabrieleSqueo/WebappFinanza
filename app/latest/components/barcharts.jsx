@@ -35,10 +35,14 @@ function sumAmountsByMonth(transactions) {
 
 const BarCharts = ({transactions}) => {
     const result = sumAmountsByMonth(transactions);
+    console.log(result[result.length-1])
+    const varLastMonth = result[result.length-1].income- result[result.length-1].expenses;
+    const varEntrate = result[result.length-1].income - result[result.length-2].income
+    const varSpese = result[result.length-1].expenses - result[result.length-2].expenses
     
     return (
-        <div className='mx-auto'>
-            <BarChart
+        <div className='mx-auto flex flex-row'>
+          <BarChart
               width={730}
               height={250}
               data={result}
@@ -57,6 +61,19 @@ const BarCharts = ({transactions}) => {
               <Bar dataKey="income" fill="green" activeBar={<Rectangle fill="green" stroke="black" />} />
               <Bar dataKey="expenses" fill="red" activeBar={<Rectangle fill="red" stroke="black" />} />
             </BarChart>
+            
+          <div className='flex flex-col border p-4 w-1/2'>
+            <h1 className='mx-auto'>Infomazioni sul comportamento </h1>
+            {result &&
+              <div>
+                <p> Cambiamento del saldo nell'ultimo mese: {varLastMonth}€</p>
+                <p> Variazioni delle entrate rispetto al mese precedente: {varEntrate}€</p>
+                <p> Variazioni delle spese rispetto al mese precedente: {varSpese}€</p>
+                <p> Categoria in cui hai speso maggiormente:</p>
+              </div>
+              
+            }
+          </div>
         </div>
     )
 }

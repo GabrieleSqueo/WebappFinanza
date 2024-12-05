@@ -16,7 +16,7 @@ const Transactions = () => {
 
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("Nessuna");
 
   const [date, setDate] = useState(Date)
   const [error, setError] = useState("");
@@ -89,7 +89,7 @@ const Transactions = () => {
       setAmount("");
       setDescription("");
       setDate("");
-      setCategory("")
+      setCategory("Nessuna")
     }
   };
 
@@ -109,8 +109,8 @@ const Transactions = () => {
               onChange={(e) => setType(e.target.value)}
               className="w-full px-4 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500"
             >
-              <option value="Income">Income</option>
-              <option value="Expense">Expense</option>
+              <option value="Income">Entrata</option>
+              <option value="Expense">Spesa</option>
             </select>
           </div>
           <div className="mb-4">
@@ -152,11 +152,16 @@ const Transactions = () => {
               className="w-full px-4 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
-          <div className="mb-4">
+          <div className={`mb-4 ${type === "Income" ? "hidden" : ""}`}>
             <label className="block text-sm font-medium text-gray-700">
               Categoria (Optional)
             </label>
-            <select onChange={(e) => setCategory(e.target.value)} value={category} name="selectedVegetable" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+            <select
+              onChange={(e) => setCategory(e.target.value)}
+              value={category}
+              name="categoriaSelezionata"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            >
               <option id="0" value="Nessuna">Nessuna</option>
               <option id="1" value="Alimenti">Alimenti</option>
               <option id="2" value="Famiglia">Famiglia</option>
