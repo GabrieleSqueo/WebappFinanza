@@ -20,7 +20,6 @@ const UserTransactions = () => {
   let saldo = 0;
 
   useEffect(() => {
-    console.log("ciao")
     fetchTransactions();
   }, [userId]);
 
