@@ -1,12 +1,15 @@
 import Link from "next/link";
+import Image from "next/image";
+import logo from "./public/images/logo.png"
 
 const Home = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <header className="w-full bg-blue-600 py-4">
-        <h1 className="text-center text-3xl font-bold text-white">
-          MyFinanceBuddy
-        </h1>
+      <header className="w-full bg-blue-600 py-2 flex flex-row">
+        <Image src={logo} width={50} height={50} alt="logo" className="ml-4"/>
+        <Link href="/" className="text-white text-lg font-bold my-auto mx-auto flex flex-row justify-center">
+            <p className="text-5xl italic">Gestione360</p>
+        </Link >
       </header>
 
       <div className="flex flex-col items-center justify-center flex-1 px-4 text-center">

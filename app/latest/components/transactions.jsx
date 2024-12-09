@@ -95,7 +95,7 @@ const Transactions = () => {
 
   return (
     <div className="flex items-center justify-center min-h-full my-8 ">
-      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
+      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md shadow-blue-500">
         <h2 className="text-2xl font-bold text-center text-gray-800">
           Add a Transaction
         </h2>
@@ -107,7 +107,7 @@ const Transactions = () => {
             <select
               value={type}
               onChange={(e) => setType(e.target.value)}
-              className="w-full px-4 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-4 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500 bg-white"
             >
               <option value="Income">Entrata</option>
               <option value="Expense">Spesa</option>
@@ -123,7 +123,7 @@ const Transactions = () => {
               onChange={(e) => setAmount(e.target.value)}
               placeholder="Enter amount"
               required
-              className="w-full px-4 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-4 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500 bg-white"
             />
           </div>
           <div className="mb-4">
@@ -135,7 +135,7 @@ const Transactions = () => {
               onChange={(e) => setDate(e.target.value)}
               placeholder="Enter date"
               required
-              className="w-full px-4 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-4 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500 bg-white"
             />
             </label>
           </div>
@@ -149,7 +149,7 @@ const Transactions = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Enter a description"
-              className="w-full px-4 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-4 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500 bg-white"
             />
           </div>
           <div className={`mb-4 ${type === "Income" ? "hidden" : ""}`}>

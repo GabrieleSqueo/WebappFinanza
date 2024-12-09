@@ -5,7 +5,7 @@ import BarCharts from "./barcharts";
 
 
 const Graphs = ({ userId }) => {
-  const [transactions, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState(undefined);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -24,6 +24,7 @@ const Graphs = ({ userId }) => {
         }
         
         const text = await res.text();
+        console.log('Raw response:', text);
         const data = text ? JSON.parse(text) : [];
         setTransactions(data);
         
@@ -44,18 +45,18 @@ const Graphs = ({ userId }) => {
     }
   }, [userId]);
 
-  if (loading) return <span className="flex flex-col text-center text-5xl py-10 italic underline mx-auto">Attendi un secondo...</span>;
+  if (loading) return <p>Loading transactions...</p>;
 
   return (
-    <div className="min-h-72">
-      <h1 className="text-center text-5xl py-4">Transazioni utente</h1>
+    <div className="min-h-72 flex flex-col">
+      <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600 leading-tight mb-3 sm:mb-6 mx-auto">Transazioni utente</h1>
       
-      {transactions && transactions.length>0 ?
-        <div className="flex flex-col mx-auto">
+      {transactions ?
+        <div className="flex flex-col gap-4">
             <LineCharts transactions={transactions}/>
             <BarCharts transactions={transactions}/>
         </div>  
-      : !loading && <h1 className="text-center text-5xl py-10 italic underline"> Inserisci qua sotto la tua prima transazione</h1>
+      : <p>Loading</p>
       }
       
     </div>

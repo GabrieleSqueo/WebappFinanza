@@ -27,17 +27,17 @@ const Navbar = ({ userId }) => {
     };
 
     return (
-        <nav className="bg-blue-600 p-4">
+        <nav className="text-blue-500  p-4">
         <div className="container mx-auto flex justify-between items-center">
-            <Link href="/" className="text-white text-lg font-bold my-auto">MyFinanceBuddy </Link>
+            <Link href="/" className="text-xl text-blue-700 font-bold my-auto">Gestione360 </Link>
             <div className="flex space-x-4">
             {userId ?
-                <Link href={`./latest/${userId}`} className="text-white hover:underline my-auto">Transazioni</Link> :
+                <Link href={`./latest/${userId}`} className="text-xl hover:text-blue-700 font-bold my-auto">Transazioni</Link> :
                 <span className="loading loading-spinner loading-md"></span>
             }
             <button
                 onClick={handleLogout}
-                className=" text-white px-4 py-2 rounded hover:underline  my-auto"
+                className="text-xl font-bold px-4 py-2 rounded hover:text-blue-700 hover:underline  my-auto"
             >
                 Logout
             </button>

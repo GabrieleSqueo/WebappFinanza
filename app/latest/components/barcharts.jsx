@@ -41,31 +41,31 @@ const BarCharts = ({transactions}) => {
     const varSpese = result[result.length-1].expenses - result[result.length-2].expenses
     
     return (
-        <div className='mx-auto flex flex-row'>
+        <div className='flex flex-col md:flex-row gap-2 justify-between'>
           <BarChart
               width={730}
-              height={250}
+              height={270}
               data={result}
               margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
+                top: 20,
+                right: 20,
+                left: 0,
+                bottom: 15,
               }}
+              className='bg-white shadow-blue-500 shadow mx-auto rounded'
             >
-              <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="month" />
               <YAxis />
               <Tooltip />
               <Legend />
-              <Bar dataKey="income" fill="green" activeBar={<Rectangle fill="green" stroke="black" />} />
-              <Bar dataKey="expenses" fill="red" activeBar={<Rectangle fill="red" stroke="black" />} />
+              <Bar name="Entrate" dataKey="income" fill="green" activeBar={<Rectangle fill="green" stroke="black" />} barSize={40}/>
+              <Bar name="Spese" dataKey="expenses" fill="red" activeBar={<Rectangle fill="red" stroke="black" />} barSize={40}/>
             </BarChart>
             
-          <div className='flex flex-col border p-4 w-1/2'>
+          <div className='flex flex-col border-2 p-4  w-1/2 bg-white rounded shadow-blue-600 shadow mx-auto '>
             <h1 className='mx-auto'>Infomazioni sul comportamento </h1>
             {result &&
-              <div>
+              <div className=''>
                 <p> Cambiamento del saldo nell'ultimo mese: {varLastMonth}€</p>
                 <p> Variazioni delle entrate rispetto al mese precedente: {varEntrate}€</p>
                 <p> Variazioni delle spese rispetto al mese precedente: {varSpese}€</p>
