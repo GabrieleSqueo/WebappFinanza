@@ -6,7 +6,7 @@ import InfoUser from './infouser';
 function sumAmountsByMonth(transactions) {
     const sumsByMonth = {};
     
-    if (transactions.length <0) {
+    if (transactions.filter(item => item.type).length >0 ) {
       return []
     }
     transactions.forEach((transaction) => {
@@ -70,7 +70,7 @@ const BarCharts = ({transactions}) => {
 
           
         </div>
-        {transactions.length>0 && result.length>0 ?
+        {transactions.filter(item => item.type).length >0 && transactions.filter(item => !item.type).length >0  && result.length>0 ?
         <>
           <PieCharts transactions={transactions}/>
           <InfoUser result={result} transactions={transactions}/>
