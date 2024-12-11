@@ -6,7 +6,7 @@ import InfoUser from './infouser';
 function sumAmountsByMonth(transactions) {
     const sumsByMonth = {};
     
-    if (transactions.length <0 ) {
+    if (transactions.length >0 ) {
       return []
     }
 
