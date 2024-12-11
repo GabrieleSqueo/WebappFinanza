@@ -3,7 +3,7 @@ import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } f
 
 function CustomTooltip({ payload, active }) {
   let category = ""
-    if (active) {
+    if (active && payload.length>0) {
       switch (payload[0].payload.category) {
         case 1:
           category = "Alimenti" 
