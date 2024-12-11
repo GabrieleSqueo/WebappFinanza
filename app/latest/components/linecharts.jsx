@@ -38,8 +38,8 @@ function CustomTooltip({ payload, active }) {
 
 const LineCharts = ({transactions}) => {
   return (
-    <div className='flex flex-col md:flex-row h-72 w-full mx-auto gap-2 justify-between'>
-        <div className='w-1/2 m-4'>
+    <div className='flex flex-col md:flex-row h-96  md:h-72  gap-2 md:justify-between w-full'>
+        <div className='md:w-1/2 m-4'>
             <ResponsiveContainer height="100%" width="100%" className="bg-white shadow shadow-blue-500 rounded">
                 <LineChart className='mx-auto' width={540} height={250} data={transactions.filter(item => item.type).sort((a,b) => a.date > b.date ?  1 : -1)} margin={{ top: 20, right: 30, left: 0, bottom: 15 }} >
                     <XAxis dataKey="date" />
@@ -50,7 +50,7 @@ const LineCharts = ({transactions}) => {
                 </LineChart>
             </ResponsiveContainer>
         </div>
-        <div className='w-1/2 m-4'>
+        <div className='md:w-1/2 m-4'>
             <ResponsiveContainer height="100%" width="100%" className="bg-white shadow shadow-blue-500 rounded">
             <LineChart width={540} height={250} data={transactions.filter(item => !item.type)} margin={{ top: 20, right: 20, left: 0, bottom: 15 }}>
                 <XAxis dataKey="date" />

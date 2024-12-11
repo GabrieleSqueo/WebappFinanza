@@ -30,7 +30,7 @@ const Latest = () => {
   }, []);
 
   return (
-    <main className='bg-sky-100 min-h-screen pb-10'>
+    <main className='bg-gradient-to-b from-sky-100 from-10% to-sky-200 min-h-screen pb-10'>
       <Navbar userId={data.id}/>
       {data &&
         <Graphs userId={data.id}/>

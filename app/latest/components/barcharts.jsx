@@ -1,5 +1,7 @@
 import {React, useState} from 'react'
-import {BarChart, Bar, Rectangle, CartesianGrid, XAxis, YAxis, Tooltip, Legend} from "recharts"
+import {BarChart, Bar, Rectangle, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer} from "recharts"
+import PieCharts from './piecharts';
+import InfoUser from './infouser';
 
 function sumAmountsByMonth(transactions) {
     const sumsByMonth = {};
@@ -36,45 +38,38 @@ function sumAmountsByMonth(transactions) {
 const BarCharts = ({transactions}) => {
     const result = sumAmountsByMonth(transactions);
     console.log(result[result.length-1])
-    const varLastMonth = result[result.length-1].income- result[result.length-1].expenses;
-    const varEntrate = result[result.length-1].income - result[result.length-2].income
-    const varSpese = result[result.length-1].expenses - result[result.length-2].expenses
+    
     
     return (
-        <div className='flex flex-col md:flex-row gap-2 justify-between'>
-          <BarChart
-              width={730}
-              height={270}
-              data={result}
-              margin={{
-                top: 20,
-                right: 20,
-                left: 0,
-                bottom: 15,
-              }}
-              className='bg-white shadow-blue-500 shadow mx-auto rounded'
-            >
-              <XAxis dataKey="month" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar name="Entrate" dataKey="income" fill="green" activeBar={<Rectangle fill="green" stroke="black" />} barSize={40}/>
-              <Bar name="Spese" dataKey="expenses" fill="red" activeBar={<Rectangle fill="red" stroke="black" />} barSize={40}/>
-            </BarChart>
-            
-          <div className='flex flex-col border-2 p-4  w-1/2 bg-white rounded shadow-blue-600 shadow mx-auto '>
-            <h1 className='mx-auto'>Infomazioni sul comportamento </h1>
-            {result &&
-              <div className=''>
-                <p> Cambiamento del saldo nell'ultimo mese: {varLastMonth}€</p>
-                <p> Variazioni delle entrate rispetto al mese precedente: {varEntrate}€</p>
-                <p> Variazioni delle spese rispetto al mese precedente: {varSpese}€</p>
-                <p> Categoria in cui hai speso maggiormente:</p>
-              </div>
-              
-            }
+      <section>
+        <div className='flex flex-col md:flex-row gap-2 w-full justify-stretch mx-auto'>
+          <div className="w-full h-72 m-4">
+            <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+                data={result}
+                margin={{
+                  top: 20,
+                  right: 20,
+                  left: 0,
+                  bottom: 15,
+                }}
+                className='bg-white shadow-blue-500 shadow rounded'
+              >
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar name="Entrate" dataKey="income" fill="green" activeBar={<Rectangle fill="green" stroke="black" />} barSize={40}/>
+                <Bar name="Spese" dataKey="expenses" fill="red" activeBar={<Rectangle fill="red" stroke="black" />} barSize={40}/>
+              </BarChart>
+            </ResponsiveContainer>
           </div>
+
+          
         </div>
+        <PieCharts transactions={transactions}/>
+        <InfoUser result={result} transactions={transactions}/>
+        </section>
     )
 }
 
