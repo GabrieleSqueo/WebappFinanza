@@ -71,9 +71,12 @@ const BarCharts = ({transactions}) => {
 
           
         </div>
-        {transactions.filter(item => item.type).length >0 && transactions.filter(item => !item.type).length >0  && result.length>0 ?
-        <>
+        {transactions.some(item => !item.type).length >0 &&
           <PieCharts transactions={transactions}/>
+        }
+        {transactions.some(item => item.type).length >0 && transactions.some(item => !item.type).length >0  && result.length>0 ?
+        <>
+          
           <InfoUser result={result} transactions={transactions}/>
           </>:
         <></>
