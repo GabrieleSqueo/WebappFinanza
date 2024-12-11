@@ -6,9 +6,6 @@ import InfoUser from './infouser';
 function sumAmountsByMonth(transactions) {
     const sumsByMonth = {};
     
-    if (transactions.filter(item => item.type).length >0 ) {
-      return []
-    }
     transactions.forEach((transaction) => {
       const date = new Date(transaction.date);
       const monthYear = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
