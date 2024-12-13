@@ -3,7 +3,7 @@ import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } f
 
 function CustomTooltip({ payload, active }) {
   let category = ""
-    if (active) {
+    if (active && payload.length>0) {
       switch (payload[0].payload.category) {
         case 1:
           category = "Alimenti" 
@@ -39,28 +39,32 @@ function CustomTooltip({ payload, active }) {
 const LineCharts = ({transactions}) => {
   return (
     <div className='flex flex-col md:flex-row h-96  md:h-72  gap-2 md:justify-between w-full'>
-        <div className='md:w-1/2 m-4'>
-            <ResponsiveContainer height="100%" width="100%" className="bg-white shadow shadow-blue-500 rounded">
-                <LineChart className='mx-auto' width={540} height={250} data={transactions.filter(item => item.type).sort((a,b) => a.date > b.date ?  1 : -1)} margin={{ top: 20, right: 30, left: 0, bottom: 15 }} >
-                    <XAxis dataKey="date" />
-                    <YAxis dataKey="amount"/>
-                    <Tooltip content={<CustomTooltip />}/>
-                    <Legend />
-                    <Line name="Entrate" type="linear" dataKey="amount" stroke="green" strokeWidth="2"/>
-                </LineChart>
-            </ResponsiveContainer>
-        </div>
-        <div className='md:w-1/2 m-4'>
-            <ResponsiveContainer height="100%" width="100%" className="bg-white shadow shadow-blue-500 rounded">
-            <LineChart width={540} height={250} data={transactions.filter(item => !item.type)} margin={{ top: 20, right: 20, left: 0, bottom: 15 }}>
-                <XAxis dataKey="date" />
-                <YAxis dataKey="amount" name=''/>
-                <Tooltip content={<CustomTooltip />}/>
-                <Legend />
-                <Line name="Spese" type="linear" dataKey="amount" stroke="red" strokeWidth="2"/>
-            </LineChart>
-            </ResponsiveContainer>
-        </div>
+        {transactions.some(item => item.type).length >0 &&
+          <div className='md:w-1/2 m-4'>
+              <ResponsiveContainer height="100%" width="100%" className="bg-white shadow shadow-blue-500 rounded">
+                  <LineChart className='mx-auto' width={540} height={250} data={transactions.filter(item => item.type).sort((a,b) => a.date > b.date ?  1 : -1)} margin={{ top: 20, right: 30, left: 0, bottom: 15 }} >
+                      <XAxis dataKey="date" />
+                      <YAxis dataKey="amount"/>
+                      <Tooltip content={<CustomTooltip />}/>
+                      <Legend />
+                      <Line name="Entrate" type="linear" dataKey="amount" stroke="green" strokeWidth="2"/>
+                  </LineChart>
+              </ResponsiveContainer>
+          </div>
+        }
+        {transactions.some(item => !item.type).length >0 &&
+          <div className='md:w-1/2 m-4'>
+              <ResponsiveContainer height="100%" width="100%" className="bg-white shadow shadow-blue-500 rounded">
+              <LineChart width={540} height={250} data={transactions.filter(item => !item.type).sort((a,b) => a.date > b.date ?  1 : -1)} margin={{ top: 20, right: 20, left: 0, bottom: 15 }}>
+                  <XAxis dataKey="date" />
+                  <YAxis dataKey="amount" name=''/>
+                  <Tooltip content={<CustomTooltip />}/>
+                  <Legend />
+                  <Line name="Spese" type="linear" dataKey="amount" stroke="red" strokeWidth="2"/>
+              </LineChart>
+              </ResponsiveContainer>
+          </div>
+        }
     </div>
   )
 }
