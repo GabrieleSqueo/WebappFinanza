@@ -4,8 +4,6 @@ const InfoUser = ({result, transactions}) => {
     const varLastMonth = result[result.length-1].income - result[result.length-1].expenses;
     const varEntrate = result[result.length-1].income - result[result.length-2].income;
     const varSpese = result[result.length-1].expenses - result[result.length-2].expenses;
-    const saldo = transactions.reduce((sum, transaction) => sum += transaction.amount, 0);
-    console.log(saldo)
     
     // Calcolo spese per categoria
     const categoryExpenses = transactions
@@ -45,7 +43,6 @@ const InfoUser = ({result, transactions}) => {
                         <p> Variazioni delle entrate rispetto al mese precedente: {varEntrate}€</p>
                         <p> Variazioni delle spese rispetto al mese precedente: {varSpese}€</p>
                         <p> Categoria in cui hai speso maggiormente: {maxCategoryName} {maxCategory.amount}€</p>
-                        <p > Saldo: <span className={`${saldo >0? "text-green-600" :"text-red-400"}`}>{saldo }€</span> </p>
                     </div>
                     }
                 </div>

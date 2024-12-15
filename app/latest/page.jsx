@@ -15,7 +15,9 @@ const supabase = createClient(
 
 const Latest = () => {
   const router = useRouter()
-  const [data, setData] = useState([])
+  const [data, setData] = useState(null)
+  const [transactions, setTransactions] = useState(undefined);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const checkUser = async () => {
@@ -23,22 +25,57 @@ const Latest = () => {
       
       if (!user) {
         router.push("/login"); // Redirect to login if not logged in
+        return;
       }
       setData(user)
     };
     checkUser();
   }, []);
 
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      if (!data || !data.id) return;
+
+      try {
+        console.log('Fetching transactions for user:', data.id);
+        
+        const res = await fetch(`/api/getTransactions?user_id=${data.id}`, {
+          method: "GET"
+        });
+
+        if (!res.ok) {
+          const errorText = await res.text();
+          console.error('Error response:', errorText);
+          throw new Error(`HTTP error! status: ${res.status}, message: ${errorText}`);
+        }
+        
+        const text = await res.text();
+        const transactionData = text ? JSON.parse(text) : [];
+        setTransactions(transactionData);
+
+      } catch (err) {
+        console.error("Error fetching transactions:", err);
+        setTransactions([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTransactions();
+  }, [data]);
+
+  if (loading) return <p>Loading transactions...</p>;
+
   return (
     <main className='bg-gradient-to-b from-sky-100 from-10% to-sky-200 min-h-screen pb-10'>
-      <Navbar userId={data.id}/>
-      {data &&
-        <Graphs userId={data.id}/>
+      {data && <Navbar userId={data.id}/>}
+      {transactions &&
+        <>
+          <Graphs transactions={transactions}/>
+          <Transactions transactions={transactions}/>
+        </>
       }
-      <Transactions />
     </main>
-    
-    
   )
 }
 

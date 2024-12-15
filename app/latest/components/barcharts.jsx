@@ -6,7 +6,7 @@ import InfoUser from './infouser';
 function sumAmountsByMonth(transactions) {
     const sumsByMonth = {};
     
-    if (transactions.length >0 ) {
+    if (transactions.length ===0 ) {
       return []
     }
 
@@ -41,8 +41,6 @@ function sumAmountsByMonth(transactions) {
 
 const BarCharts = ({transactions}) => {
     const result = sumAmountsByMonth(transactions);
-    console.log(result[result.length-1])
-    
     
     return (
       <section>
@@ -71,15 +69,11 @@ const BarCharts = ({transactions}) => {
 
           
         </div>
-        {transactions.some(item => !item.type).length >0 &&
+        {transactions.some(item => !item.type) &&
           <PieCharts transactions={transactions}/>
         }
-        {transactions.some(item => item.type).length >0 && transactions.some(item => !item.type).length >0  && result.length>0 ?
-        <>
-          
+        {transactions && transactions.some(item => item.type) && transactions.some(item => !item.type)  &&
           <InfoUser result={result} transactions={transactions}/>
-          </>:
-        <></>
         }
         </section>
     )

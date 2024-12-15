@@ -22,19 +22,19 @@ const Description = () => {
         </div>
         <div className='flex flex-row justify-center my-12'>
             <div className='flex flex-col w-1/4'>
-                <Image src={descimg} className='h-24 px-auto'/>
+                <Image src={descimg} className='h-24 px-auto' alt="Budget personalizzati"/>
                 <p className='text-white text-xl mx-auto text-balance py-2 italic'>Budget Personalizzati con AI</p>
             </div>
             <div className='flex flex-col w-1/4'>
-                <Image src={graphs} className='h-24 px-auto'/>
+                <Image src={graphs} className='h-24 px-auto' alt="Grafici"/>
                 <p className='text-white text-xl mx-auto text-balance py-2 italic'>Grafici interattivi e predittivi</p>
             </div>
             <div className='flex flex-col w-1/4'> 
-                <Image src={analysis} className='h-24 px-auto'/>
+                <Image src={analysis} className='h-24 px-auto' alt='Analisi del comportamento'/>
                 <p className='text-white text-xl mx-auto  py-2 italic'>Analisi del comportamento </p>
             </div>
             <div className='flex flex-col w-1/4'>
-                <Image src={people} className='h-24 px-auto'/>
+                <Image src={people} className='h-24 px-auto' alt='Integrraione multi_account'/>
                 <p className='text-white text-xl mx-auto text-balance py-2 italic'>Integrazione multi_account</p>
             </div>
         </div>

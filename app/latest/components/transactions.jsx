@@ -1,6 +1,7 @@
 "use client"
 import { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
+import SavingsPage from "./savigspage";
 
 
 // Initialize Supabase client
@@ -10,9 +11,9 @@ const supabase = createClient(
 );
 
 
-const Transactions = () => {
+const Transactions = ({transactions}) => {
 
-  const [type, setType] = useState("Income");
+  const [type, setType] = useState("  ");
 
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
@@ -180,6 +181,10 @@ const Transactions = () => {
         {error && <p className="mt-4 text-sm text-red-500">{error}</p>}
         {success && <p className="mt-4 text-sm text-green-500">{success}</p>}
       </div>
+      { transactions && user &&
+      <SavingsPage transactions={transactions} userId={user.id}/>
+      }
+
     </div>
   );
 };
