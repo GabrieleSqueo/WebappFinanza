@@ -91,7 +91,7 @@ const UserTransactions = () => {
             {transactions.sort((a,b) => a.date > b.date ?  1 : -1).map((transaction) => (
               <tr key={transaction.id}>
                 <td className="px-4 py-2 border-b text-center">
-                  {transaction.type ? "Income" : "Expense"}
+                  {transaction.type ? "Entrata" : "Spesa"}
                 </td>
                 <td className="px-4 py-2 border-b text-center">
                   {transaction.category === 1 ? "Alimenti" : transaction.category===2 ? "Famiglia": transaction.category=== 3 ? "Vestiti" : transaction.category===4 ?"Svago" : transaction.category===5 ?"Istruzione": "Nessuna"}
@@ -106,7 +106,7 @@ const UserTransactions = () => {
                   {transaction.description || "-"}
                 </td>
                 <td className="px-4 py-2 border-b text-center">
-                  {transaction.type === true ? saldo += transaction.amount : saldo -= transaction.amount}€
+                  {transaction.category!=6 ? transaction.type === true ? saldo += transaction.amount : saldo -= transaction.amount : saldo-= transaction.amount}€
                 </td>
                 <td className="px-4 py-2 border-b text-center">
                   <button

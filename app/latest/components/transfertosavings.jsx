@@ -63,8 +63,8 @@ const TransferToSavings = ({ userId, currentBalance, savingsBalance }) => {
   };
 
   return (
-    <div className="p-4 bg-white rounded shadow shadow-blue-500 h-max">
-      <h2 className="text-lg font-bold text-gray-800 mb-4">Trasferisci al Salvadanio</h2>
+    <div className="flex flex-col p-4 bg-white rounded shadow shadow-blue-500 min-h-full">
+      <h2 className="text-lg font-bold text-gray-800 mb-4 mx-auto">Trasferisci al Salvadanio</h2>
       <p className="text-gray-600 mb-2">Saldo attuale: {currentBalanceState.toFixed(2)} €</p>
       <p className="text-gray-600 mb-4">Salvadanaio: {savingsBalanceState.toFixed(2)} €</p>
 

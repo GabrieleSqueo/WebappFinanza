@@ -95,10 +95,10 @@ const Transactions = ({transactions}) => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-full my-8 ">
+    <div className="flex items-center justify-center min-h-full my-8 gap-2">
       <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md shadow-blue-500">
         <h2 className="text-2xl font-bold text-center text-gray-800">
-          Add a Transaction
+          Aggiungi una transazione
         </h2>
         <form onSubmit={handleSaveTransaction} className="mt-6">
           <div className="mb-4">

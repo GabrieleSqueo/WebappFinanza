@@ -11,7 +11,7 @@ export default function SavingsPage({transactions, userId}) {
   }, 0);
 
   return (
-    <div className="p-6">
+    <div className="p-6 min-h-full">
       <TransferToSavings
         userId= {userId}// Sostituisci con l'ID dell'utente loggato
         currentBalance={balance}
