@@ -1,4 +1,4 @@
-import TransferToSavings from "../components/TransferToSavings";
+import TransferToSavings from "./transfertosavings";
 
 export default function SavingsPage({transactions, userId}) {
 
