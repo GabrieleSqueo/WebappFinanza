@@ -2,7 +2,7 @@ import React from 'react'
 
 const InfoUser = ({result, transactions}) => {
     // Verifica se result esiste e ha almeno 2 elementi
-    if (!result || result.length < 2 || !transactions) {
+    if (!result || !transactions) {
         return (
             <div className='flex flex-row justify-between'>
                 <div className='md:w-1/2'>
@@ -14,22 +14,16 @@ const InfoUser = ({result, transactions}) => {
         );
     }
 
-    // Verifica se gli oggetti in result hanno le proprietà necessarie
-    const lastEntry = result[result.length-1];
-    const previousEntry = result[result.length-2];
-
-    if (!lastEntry?.income || !lastEntry?.expenses || 
-        !previousEntry?.income || !previousEntry?.expenses) {
-        return (
-            <div className='flex flex-row justify-between'>
-                <div className='md:w-1/2'>
-                    <div className='flex flex-col border-2 px-8 py-4 md:w-min bg-white rounded shadow-blue-600 shadow mx-auto my-4'>
-                        <h1 className='mx-auto font-bold text-lg my-2'>Dati incompleti per mostrare le informazioni</h1>
-                    </div>
-                </div>
-            </div>
-        );
-    }
+    // Inizializza i valori a 0
+    const lastEntry = {
+        income: result[result.length-1]?.income || 0,
+        expenses: result[result.length-1]?.expenses || 0
+    };
+    
+    const previousEntry = {
+        income: result.length > 1 ? (result[result.length-2]?.income || 0) : 0,
+        expenses: result.length > 1 ? (result[result.length-2]?.expenses || 0) : 0
+    };
 
     const varLastMonth = lastEntry.income - lastEntry.expenses;
     const varEntrate = lastEntry.income - previousEntry.income;
@@ -102,7 +96,7 @@ const InfoUser = ({result, transactions}) => {
     return (
         <div className='flex flex-row justify-between'>
             <div className='md:w-1/2'>
-                <div className='flex flex-col px-8 py-4  md:w-min  mx-auto my-4 divide-y'>
+                <div className='flex flex-col px-8 py-4 md:w-min mx-auto my-4 divide-y'>
                     <h1 className='mx-auto font-bold text-5xl text-white my-2 italic'>Infomazioni sul comportamento </h1>
 
                     <div className='w-full text-xl md:text-nowrap text-white py-4'>
@@ -116,11 +110,12 @@ const InfoUser = ({result, transactions}) => {
                 </div>
             </div>
             <div className='md:w-1/2'>
-                <div className='flex flex-col px-8 py-4  md:w-min mx-auto m-4 divide-y'>
-                    <h1 className='mx-auto font-bold text-5xl text-white my-2 italic' >Consigli sul comportamento </h1>
-                    <div className='w-full text-xl md:text-nowrap text-white py-4'>
-                        
-                        <p className="mt-4"> <span className='text-yellow-200'>{generateSavingsAdvice()}</span></p>
+                <div className='flex flex-col px-8 py-4 md:w-auto mx-auto m-4 divide-y'>
+                    <h1 className='mx-auto font-bold text-5xl text-white my-2 italic text-wrap'>Consigli sul comportamento </h1>
+                    <div className='text-xl text-white py-4'>
+                        <p className="mt-4 text-wrap">
+                            <span className='text-yellow-200'>{generateSavingsAdvice()}</span>
+                        </p>
                     </div>
                 </div>
             </div>

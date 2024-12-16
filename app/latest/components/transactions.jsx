@@ -84,9 +84,9 @@ const Transactions = ({transactions}) => {
       .insert([{ type: typeBool, amount: parseFloat(amount), description, userid: user.id, date: date, category: categoryInt}]);
 
     if (error) {
-      setError("Error saving transaction: " + error.message);
+      setError("Errore salvando la transazione: " + error.message);
     } else {
-      setSuccess("Transaction saved successfully!");
+      setSuccess("Transazione salvata con successo!");
       setAmount("");
       setDescription("");
       setDate("");

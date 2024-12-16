@@ -73,7 +73,7 @@ const BarCharts = ({transactions}) => {
         {transactions.some(item => !item.type) &&
           <PieCharts transactions={transactions}/>
         }
-        {transactions && transactions.some(item => item.type) && transactions.some(item => !item.type)  &&
+        {transactions && transactions.some(item => item.type) && transactions.some(item => !item.type)  && result &&
           <InfoUser result={result} transactions={transactions}/>
         }
         </section>
