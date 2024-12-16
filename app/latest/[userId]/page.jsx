@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import Navbar from "./components/navbarTransactions";
 import SaldoChart from "./components/saldoChart"
+import Footer from "@/app/components/footer";
 
 // Inizializza il client di Supabase
 const supabase = createClient(
@@ -64,25 +65,26 @@ const UserTransactions = () => {
   }
 
   return (
-    <div >
-    <Navbar />
-    <div className="container mx-auto p-4">
+    <>
+    <div className=" mb-3">
+      <Navbar />
+      <div className="flex flex-col container mx-auto p-4 rounded ">
       
-      <h1 className="text-2xl font-bold mb-4">
+      <h1 className="text-5xl italic font-bold mb-4 mx-auto text-blue-600">
         Transazioni
       </h1>
 
       {transactions.length === 0 ? (
         <p>No transactions found for this user.</p>
       ) : (
-        <table className="min-w-full bg-white border border-gray-200">
+        <table className="min-w-full table-auto bg-white border border-gray-200">
           <thead>
             <tr>
-              <th className="px-4 py-2 border-b text-center">Type</th>
-              <th className="px-4 py-2 border-b text-center">Category</th>
-              <th className="px-4 py-2 border-b text-center">Amount</th>
-              <th className="px-4 py-2 border-b text-center">Date</th>
-              <th className="px-4 py-2 border-b text-center">Description</th>
+              <th className="px-4 py-2 border-b text-center ">Tipo</th>
+              <th className="px-4 py-2 border-b text-center">Categoria</th>
+              <th className="px-4 py-2 border-b text-center">Importo</th>
+              <th className="px-4 py-2 border-b text-center">Data</th>
+              <th className="px-4 py-2 border-b text-center">Descrizione</th>
               <th className="px-4 py-2 border-b text-center">Saldo</th>
               <th className="px-4 py-2 border-b text-center"></th>
             </tr>
@@ -111,9 +113,9 @@ const UserTransactions = () => {
                 <td className="px-4 py-2 border-b text-center">
                   <button
                     onClick={() => deleteTransaction(transaction.id)}
-                    className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 focus:outline-none"
+                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none"
                   >
-                    Delete
+                    Elimina
                   </button>
                 </td>
                 
@@ -127,7 +129,10 @@ const UserTransactions = () => {
       <SaldoChart transactions={transactions}/> :
       <p className="text-center text-5xl py-10 italic underline">Non ci sono transazioni</p>
     }
+    
     </div>
+    <Footer />
+    </>
   );
 };
 

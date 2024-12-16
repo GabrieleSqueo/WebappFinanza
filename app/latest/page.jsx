@@ -6,6 +6,7 @@ import Transactions from './components/transactions'
 import { createClient } from "@supabase/supabase-js";
 import {useRouter} from 'next/navigation'
 import Navbar from './components/navbar'
+import Footer from '../components/footer'
 
 // Initialize Supabase client
 const supabase = createClient(
@@ -67,7 +68,7 @@ const Latest = () => {
   if (loading) return <p>Loading transactions...</p>;
 
   return (
-    <main className='flex flex-col bg-gradient-to-r from-[#0077b6] to-blue-500 min-h-screen pb-10'>
+    <main className='flex flex-col bg-gradient-to-r from-[#0077b6] to-blue-500 min-h-screen '>
       {data && <Navbar userId={data.id}/>}
       {transactions &&
         <>
@@ -75,6 +76,7 @@ const Latest = () => {
           <Transactions transactions={transactions}/>
         </>
       }
+      <Footer />
     </main>
   )
 }

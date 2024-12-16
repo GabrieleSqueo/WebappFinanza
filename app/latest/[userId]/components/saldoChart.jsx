@@ -31,19 +31,18 @@ const BalanceChart = ({ transactions }) => {
 
       return {
         date: new Date(transaction.date).toLocaleDateString(),
-        balance: cumulativeBalance,
+        Saldo: cumulativeBalance,
         savings: savingsBalance,
       };
     });
   }, [transactions]);
 
   return (
-    <>
-      <div className="w-full h-96 ">
-        <h2 className="text-lg font-bold text-center mb-4">Saldo nel tempo</h2>
+    <div className="flex flex-col gap-8 ">
+      <div className="w-full h-96 my-8">
+        <h2 className="text-5xl text-blue-600 italic font-bold text-center mb-4">Saldo nel tempo</h2>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 50 }} >
-            <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="date" 
               tick={{ angle: -30, dx: -10, dy: 15 }} 
             />
@@ -51,19 +50,18 @@ const BalanceChart = ({ transactions }) => {
             <Tooltip />
             <Line
               type="monotone"
-              dataKey="balance"
-              stroke="#8884d8"
+              dataKey="Saldo"
+              stroke="#0077b6"
               strokeWidth={2}
               dot={{ r: 3 }}
             />
           </LineChart>
         </ResponsiveContainer>
       </div>
-      <div className="w-full h-96 ">
-        <h2 className="text-lg font-bold text-center mb-4">Salvadanaio nel tempo</h2>
+      <div className="w-full h-96 my-8">
+        <h2 className="text-5xl text-blue-600 italic font-bold text-center mb-4">Salvadanaio nel tempo</h2>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 50 }} >
-            <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="date" 
               tick={{ angle: -30, dx: -10, dy: 15 }} 
             />
@@ -72,14 +70,14 @@ const BalanceChart = ({ transactions }) => {
             <Line
               type="monotone"
               dataKey="savings"
-              stroke="#82ca9d"
+              stroke="#f9c74f"
               strokeWidth={2}
               dot={{ r: 3 }}
             />
           </LineChart>
         </ResponsiveContainer>
       </div>
-    </>
+    </div>
   );
 };
 

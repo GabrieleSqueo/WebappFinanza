@@ -97,13 +97,13 @@ const Transactions = ({transactions}) => {
   return (
     <div className="flex items-center justify-center min-h-full my-8 gap-2">
       <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md shadow-blue-500">
-        <h2 className="text-2xl font-bold text-center text-gray-800">
+        <h2 className="text-2xl font-bold text-center text-blue-600 italic underline">
           Aggiungi una transazione
         </h2>
         <form onSubmit={handleSaveTransaction} className="mt-6">
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">
-              Type
+              Tipo
             </label>
             <select
               value={type}
@@ -116,20 +116,20 @@ const Transactions = ({transactions}) => {
           </div>
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">
-              Amount
+              Importo
             </label>
             <input
               type="number"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              placeholder="Enter amount"
+              placeholder="Inserisci Importo"
               required
               className="w-full px-4 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500 bg-white"
             />
           </div>
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">
-              Date
+              Data
             <input
               type="date"
               value={date}
@@ -143,19 +143,19 @@ const Transactions = ({transactions}) => {
           
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">
-              Description (Optional)
+              Descrizione (Opzionale)
             </label>
             <input
               type="text"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Enter a description"
+              placeholder="Inserisci Descrizione"
               className="w-full px-4 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500 bg-white"
             />
           </div>
           <div className={`mb-4 ${type === "Income" ? "hidden" : ""}`}>
             <label className="block text-sm font-medium text-gray-700">
-              Categoria (Optional)
+              Categoria (Opzionale)
             </label>
             <select
               onChange={(e) => setCategory(e.target.value)}
@@ -173,9 +173,9 @@ const Transactions = ({transactions}) => {
           </div>
           <button
             type="submit"
-            className="w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="mx-auto flex flex-row gap-2 shadow-[0_3px_0_rgb(67,56,202)] w-min text-nowrap px-32 py-2 text-white bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl hover:bg-blue-600  focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-blue-800"
           >
-            Save Transaction
+            Salva Transazione
           </button>
         </form>
         {error && <p className="mt-4 text-sm text-red-500">{error}</p>}

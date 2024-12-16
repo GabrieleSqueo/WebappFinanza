@@ -64,19 +64,24 @@ const InfoUser = ({result, transactions}) => {
     return (
         <div className='flex flex-row justify-between'>
             <div className='md:w-1/2'>
-                <div className='flex flex-col border-2 px-8 py-4  md:w-min bg-white rounded shadow-blue-600 shadow mx-auto my-4'>
-                    <h1 className='mx-auto font-bold text-lg my-2 '>Infomazioni sul comportamento </h1>
-                    <div className='w-full  md:text-nowrap'>
-                        <p> Cambiamento del saldo nell'ultimo mese: {varLastMonth}€</p>
-                        <p> Variazioni delle entrate rispetto al mese precedente: {varEntrate}€</p>
-                        <p> Variazioni delle spese rispetto al mese precedente: {varSpese}€</p>
-                        <p> Categoria in cui hai speso maggiormente: {maxCategoryName} {maxCategory.amount}€</p>
+                <div className='flex flex-col px-8 py-4  md:w-min  mx-auto my-4 divide-y'>
+                    <h1 className='mx-auto font-bold text-5xl text-white my-2 italic'>Infomazioni sul comportamento </h1>
+
+                    <div className='w-full text-xl md:text-nowrap text-white py-4'>
+                        <p> Cambiamento del saldo nell'ultimo mese: <span className='text-yellow-200'>{varLastMonth}€</span></p>
+                        <p> Variazioni delle entrate rispetto al mese precedente: <span className='text-yellow-200'>{varEntrate}€</span></p>
+                        <p> Variazioni delle spese rispetto al mese precedente: <span className='text-yellow-200'>{varSpese}€</span></p>
+                        <p> Categoria in cui hai speso maggiormente: <span className='text-yellow-200'>{maxCategoryName} {maxCategory.amount}€</span></p>
                     </div>
                 </div>
             </div>
             <div className='md:w-1/2'>
-                <div className='flex flex-col border-2 px-8 py-4  md:w-min bg-white rounded shadow-blue-600 shadow mx-auto m-4'>
-                    <h1 className='mx-auto font-bold text-lg my-2 md:text-nowrap'>Consigli sul comportamento </h1>
+                <div className='flex flex-col px-8 py-4  md:w-min mx-auto m-4 divide-y'>
+                    <h1 className='mx-auto font-bold text-5xl text-white my-2 italic' >Consigli sul comportamento </h1>
+                    <div className='w-full text-xl md:text-nowrap text-white py-4'>
+                        <p> </p>
+
+                    </div>
                 </div>
             </div>
         </div>
