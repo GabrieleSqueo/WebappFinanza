@@ -3,6 +3,7 @@ import { React, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { redirect } from "next/dist/server/api-utils";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 // Inizializza il client Supabase
 const supabase = createClient(
@@ -36,9 +37,9 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-center text-gray-800">Accedi</h2>
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-sky-700 to-70% to-indigo-800">
+      <div className="flex flex-col w-full max-w-md p-8 bg-white rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold text-center text-gray-800">Login</h2>
         <form onSubmit={handleLogin} className="mt-6">
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">Email</label>
@@ -67,6 +68,7 @@ const Login = () => {
             Accedi
           </button>
         </form>
+        <p className="pt-4 mx-auto">Non hai un account? <Link href="./signin" className="text-blue-500 underline hover:text-indigo-700 ">Registati ora</Link></p>
         {error && <p className="mt-4 text-sm text-red-500">{error}</p>}
         {success && <p className="mt-4 text-sm text-green-500">{success}</p>}
       </div>
