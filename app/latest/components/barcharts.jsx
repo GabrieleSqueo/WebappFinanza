@@ -45,7 +45,8 @@ const BarCharts = ({transactions}) => {
     return (
       <section>
         <div className='flex flex-col md:flex-row gap-2 w-full justify-stretch mx-auto'>
-          <div className="w-full h-72 m-4">
+          <div className="flex flex-col w-full h-72 m-4 mt-0">
+            <p className="mx-auto text-5xl font-bold py-2 italic text-white">Transazioni Mensili</p>
             <ResponsiveContainer width="100%" height="100%">
             <BarChart
                 data={result}

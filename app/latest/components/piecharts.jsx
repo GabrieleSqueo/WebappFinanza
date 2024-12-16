@@ -6,7 +6,7 @@ import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recha
 const PieCharts = ({ transactions }) => {
   // Define colors for the pie chart
   const COLORS = [
-    "#8884d8", "#82ca9d", "#ffc658", "#ff8042", "#8dd1e1", "#a4de6c", "#d0ed57", "#ffc0cb"
+    "#023e8a", "#3a7ca5", "#4361ee", "#3a86ff", "#4895ef", "#3f37c9", "#d0ed57", "#ffc0cb"
   ];
 
   // Process transactions to calculate category-wise contributions
@@ -42,11 +42,11 @@ const PieCharts = ({ transactions }) => {
   }, [transactions]);
   
   return (
-    <div className="flex flex-col w-full h-96">
-      <h2 className="text-lg font-bold text-center mb-4b text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 mx-auto">
+    <div className="flex flex-col w-full h-96 ">
+      <h2 className="text-5xl font-bold text-center mb-4b text-white mx-auto italic mt-3">
         Spese per categoria
       </h2>
-      <div className="mx-auto w-1/2 h-full">
+      <div className="mx-auto w-2/5 h-full bg-white rounded m-3 shadow shadow-blue-500">
         <ResponsiveContainer width="100%" height="100%" >
           <PieChart>
             <Pie

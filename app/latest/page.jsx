@@ -67,7 +67,7 @@ const Latest = () => {
   if (loading) return <p>Loading transactions...</p>;
 
   return (
-    <main className='bg-gradient-to-b from-sky-100 from-10% to-sky-200 min-h-screen pb-10'>
+    <main className='flex flex-col bg-gradient-to-r from-[#0077b6] to-blue-500 min-h-screen pb-10'>
       {data && <Navbar userId={data.id}/>}
       {transactions &&
         <>
