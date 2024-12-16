@@ -38,7 +38,7 @@ function CustomTooltip({ payload, active }) {
 
 const LineCharts = ({transactions}) => {
   return (
-    <div className='flex flex-col md:flex-row h-96  md:h-72 gap-2 md:justify-between w-full my-8 text-white italic'>
+    <div className='flex flex-col md:flex-row min-h-96  md:h-72 gap-2 md:justify-between w-full my-8 text-white italic'>
         {transactions.some(item => item.type) &&
           <div className='flex flex-col md:w-1/2 m-4'>
               <p className="mx-auto text-5xl font-bold py-2"> Entrate</p>
