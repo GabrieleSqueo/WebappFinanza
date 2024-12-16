@@ -61,6 +61,44 @@ const InfoUser = ({result, transactions}) => {
     
     const maxCategoryName = categoryNames[maxCategory.category] || 'Nessuna';
     
+    // Calcola il totale dei trasferimenti al salvadanaio per questo mese
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
+
+    const savingsThisMonth = transactions
+        .filter(transaction => 
+            transaction.category === 6 && 
+            new Date(transaction.date).getMonth() === currentMonth &&
+            new Date(transaction.date).getFullYear() === currentYear
+        )
+        .reduce((total, transaction) => total + transaction.amount, 0);
+
+    const savingsLastMonth = transactions
+        .filter(transaction => 
+            transaction.category === 6 && 
+            new Date(transaction.date).getMonth() === (currentMonth - 1) &&
+            new Date(transaction.date).getFullYear() === (currentMonth === 0 ? currentYear - 1 : currentYear)
+        )
+        .reduce((total, transaction) => total + transaction.amount, 0);
+
+    // Genera consigli basati sul confronto
+    const generateSavingsAdvice = () => {
+        const difference = savingsThisMonth - savingsLastMonth;
+        
+        if (savingsThisMonth === 0) {
+            return "Non hai ancora messo da parte risparmi questo mese. Prova a risparmiare anche una piccola somma!";
+        }
+        
+        if (difference > 0) {
+            return `Ottimo lavoro! Hai risparmiato ${difference.toFixed(2)}€ in più rispetto al mese scorso. Continua così!`;
+        } else if (difference < 0) {
+            return `Questo mese hai risparmiato ${Math.abs(difference).toFixed(2)}€ in meno rispetto al mese scorso. Prova ad aumentare i tuoi risparmi!`;
+        } else {
+            return `Hai mantenuto lo stesso livello di risparmio del mese scorso (${savingsThisMonth.toFixed(2)}€). Prova ad aumentarlo gradualmente!`;
+        }
+    };
+
     return (
         <div className='flex flex-row justify-between'>
             <div className='md:w-1/2'>
@@ -72,6 +110,8 @@ const InfoUser = ({result, transactions}) => {
                         <p> Variazioni delle entrate rispetto al mese precedente: <span className='text-yellow-200'>{varEntrate}€</span></p>
                         <p> Variazioni delle spese rispetto al mese precedente: <span className='text-yellow-200'>{varSpese}€</span></p>
                         <p> Categoria in cui hai speso maggiormente: <span className='text-yellow-200'>{maxCategoryName} {maxCategory.amount}€</span></p>
+                        <p> Risparmi questo mese: <span className='text-yellow-200'>{savingsThisMonth.toFixed(2)}€</span></p>
+                        <p> Risparmi mese scorso: <span className='text-yellow-200'>{savingsLastMonth.toFixed(2)}€</span></p>
                     </div>
                 </div>
             </div>
@@ -79,8 +119,8 @@ const InfoUser = ({result, transactions}) => {
                 <div className='flex flex-col px-8 py-4  md:w-min mx-auto m-4 divide-y'>
                     <h1 className='mx-auto font-bold text-5xl text-white my-2 italic' >Consigli sul comportamento </h1>
                     <div className='w-full text-xl md:text-nowrap text-white py-4'>
-                        <p> </p>
-
+                        
+                        <p className="mt-4"> <span className='text-yellow-200'>{generateSavingsAdvice()}</span></p>
                     </div>
                 </div>
             </div>
