@@ -38,7 +38,7 @@ const BalanceChart = ({ transactions }) => {
   }, [transactions]);
 
   return (
-    <div className="flex flex-col gap-8 ">
+    <div className="flex flex-col gap-8 pb-4">
       <div className="w-full h-96 my-8">
         <h2 className="text-5xl text-blue-600 italic font-bold text-center mb-4">Saldo nel tempo</h2>
         <ResponsiveContainer width="100%" height="100%">

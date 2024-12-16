@@ -68,7 +68,7 @@ const UserTransactions = () => {
     <>
     <div className=" mb-3">
       <Navbar />
-      <div className="flex flex-col container mx-auto p-4 rounded ">
+      <div className="flex flex-col container mx-auto p-4 rounded  ">
       
       <h1 className="text-5xl italic font-bold mb-4 mx-auto text-blue-600">
         Transazioni
@@ -77,9 +77,9 @@ const UserTransactions = () => {
       {transactions.length === 0 ? (
         <p>No transactions found for this user.</p>
       ) : (
-        <table className="min-w-full table-auto bg-white border border-gray-200">
+        <table className="min-w-full table-auto bg-white border shadow-lg shadow-blue-500  rounded ">
           <thead>
-            <tr>
+            <tr className="bg-[#def1f5]">
               <th className="px-4 py-2 border-b text-center ">Tipo</th>
               <th className="px-4 py-2 border-b text-center">Categoria</th>
               <th className="px-4 py-2 border-b text-center">Importo</th>
