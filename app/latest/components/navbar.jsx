@@ -35,7 +35,7 @@ const Navbar = ({ userId }) => {
             <div className="container mx-auto">
                 {/* Desktop Menu */}
                 <div className="hidden md:flex justify-between items-center">
-                <Link href="/" className="my-auto text-white text-lg font-bold flex flex-row"> 
+                <Link href="/latest" className="my-auto text-white text-lg font-bold flex flex-row"> 
                     <p className={`text-white italic text-5xl  ${shrikhand.className}`}>Gestione360</p>
                 </Link >
                     <div className="flex space-x-4">
