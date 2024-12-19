@@ -116,8 +116,8 @@ const Predizioni = () => {
     <div className="bg-gradient-to-r from-sky-700 to-70% to-indigo-800">
       <Navbar />
       {error ? (
-        <div className="min-h-screen p-8">
-          <p className="text-red-500 text-xl">{error}</p>
+        <div className="flex min-h-screen p-8">
+          <p className="text-white text-xl mx-auto my-auto">{error}</p>
         </div>
       ) : (
         prediction && 
