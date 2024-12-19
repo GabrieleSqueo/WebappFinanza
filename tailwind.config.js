@@ -11,7 +11,11 @@ module.exports = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      spacing: {
+        104: '512px',
+      }
     },
+    
   },
   plugins: [],
 };

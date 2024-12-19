@@ -15,6 +15,7 @@ const Predizioni = () => {
   const userId  = pathname.split("/")[3];
   const [prediction, setPrediction] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -22,6 +23,12 @@ const Predizioni = () => {
         const response = await fetch(`/api/getTransactions?user_id=${userId}`);
         if (!response.ok) throw new Error('Failed to fetch transactions');
         const data = await response.json();
+        
+        if (data.length === 0) {
+          setError('Non ci sono transazioni disponibili.');
+          return;
+        }
+
         const saldo = data.reduce((acc, transaction) => {
           return transaction.category != 6 ? transaction.type ? acc + transaction.amount : acc - transaction.amount: acc - transaction.amount;
         }, 0);
@@ -94,6 +101,7 @@ const Predizioni = () => {
 
       } catch (error) {
         console.error("Error:", error);
+        setError('C\'è stato un errore nel recupero delle transazioni.');
       } finally {
         setLoading(false);
       }
@@ -107,7 +115,12 @@ const Predizioni = () => {
   return (
     <div className="bg-gradient-to-r from-sky-700 to-70% to-indigo-800">
       <Navbar />
-      {prediction && 
+      {error ? (
+        <div className="min-h-screen p-8">
+          <p className="text-red-500 text-xl">{error}</p>
+        </div>
+      ) : (
+        prediction && 
         <div className="min-h-screen p-8">
           <div className="max-w-4xl mx-auto space-y-8">
             {/* Parsing del JSON e visualizzazione formattata */}
@@ -172,7 +185,7 @@ const Predizioni = () => {
             })()}
           </div>
         </div>
-      }
+      )}
       <Footer />
     </div>
   );

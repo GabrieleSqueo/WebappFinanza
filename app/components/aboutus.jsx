@@ -1,13 +1,40 @@
-import React from 'react'
+"use client"
+import React, { useEffect, useState } from 'react'
+import fotogab from "../public/images/fotogab.jpg"
+import fotosa from "../public/images/fotosa.jpeg"
+import fotoco from "../public/images/fotoco.jpeg"
+import Image from 'next/image';
 
 const AboutUs = () => {
+  const images = [
+    fotogab,
+    fotosa,
+    fotoco,
+  ];
+  
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 3000); // Cambia immagine ogni 3 secondi
+
+    return () => clearInterval(interval); // Pulisci l'intervallo al termine del componente
+  }, [images.length]);
+
   return (
     <div className='flex flex-row my-4'>
-        <div className='w-1/2'>
-            <p></p>
+        <div className='w-1/2 '>
+            <div className='flex  h-full relative  '>
+              <Image 
+                src={images[currentImageIndex]} 
+                alt={`Image ${currentImageIndex + 1}`}  
+                className='mx-auto shadow-lg shadow-black h-104 w-auto my-auto align-middle  '
+              />
+            </div>
         </div>
         <div className='w-1/2 p-4 py-2'>
-        <h1 className='text-3xl font-extrabold text-transparent bg-clip-text text-[#a9d6e5] py-1 italic'>La Nostra Storia</h1>
+        <h1 className='text-3xl font-extrabold  text-[#a9d6e5] py-1 italic'>La Nostra Storia</h1>
             <div className='text-white text-lg'>
                 Ehilà! Siamo Gabriele, Sara e Costantina, studenti universitari pugliesi. 
                 <br/>Abbaimo deciso di unirci per lavorare su un progetto innovativo che unisce tecnologia e creatività. 
