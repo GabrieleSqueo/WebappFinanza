@@ -47,7 +47,7 @@ const Predizioni = () => {
         const data = await response.json();
         
         if (data.length === 0) {
-          setError('Non ci sono transazioni disponibili.');
+          setError('Non ci sono transazioni disponibili. ');
           return;
         }
 
