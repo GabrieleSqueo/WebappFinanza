@@ -17,6 +17,28 @@ const Predizioni = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const fetchPredictions = async (spesePerCategoria, saldo) => {
+    setLoading(true); // Imposta loading a true quando inizia il caricamento
+    try {
+      const response = await fetch('/api/getPredictions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ spesePerCategoria, saldo }),
+      });
+
+      if (!response.ok) throw new Error('Failed to fetch predictions');
+      const data = await response.json();
+      setPrediction(data); // Imposta le predizioni ricevute
+    } catch (error) {
+      console.error("Error:", error);
+      setError('C\'è stato un errore nel recupero delle predizioni.');
+    } finally {
+      setLoading(false); // Imposta loading a false quando il caricamento è completato
+    }
+  };
+
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
@@ -44,67 +66,13 @@ const Predizioni = () => {
         }, {});
         console.log(spesePerCategoria);
 
-        // Una volta ottenute le transactions, fai la chiamata OpenAI
-        const completion = await openai.chat.completions.create({
-          model: "gpt-4o-mini",
-          messages: [
-            {
-              role: "user",
-              content: `In base alle seguenti transazioni "${JSON.stringify(spesePerCategoria)}", con saldo ${JSON.stringify(saldo)} esegui le seguenti analisi:
-            
-            1. **Stima della spesa per il prossimo mese**:
-              - Calcola la spesa totale prevista tra oggi e 30 giorni a venire.
-              - Considera un possibile aumento o decremento delle spese in base alle festività.
-            
-            2. **Stima della spesa attorno al compleanno, essa non può essere 0, interpretala dalle altre spese quanto può essere**:
-              - Calcola una stima della spesa concentrata nei giorni vicini al compleanno.
-            
-            3. **Simulazione di riduzioni delle spese**:
-              - Applica riduzioni del 10%, 20% e 50% sulle spese totali, escludendo le spese con "category: 6".
-              - Per ciascuna riduzione fornisci:
-                - Il totale risparmiato.
-                - La spesa ridotta suddivisa per categoria.
-                - Il nuovo saldo sommando da quello passato la riduzione.
-            
-              Restituisci un JSON ben strutturato con il seguente schema, non aggiungere altri commenti:
-              {
-                "next_month_estimate": "number",
-                "birthday_spending_estimate": "number",
-                "reductions": [
-                  {
-                    "reduction_percentage": "number",
-                    "total_savings": "number",
-                    "category_savings": {
-                      "category_1": "number",
-                      "category_2": "number",
-                      "null": "number",
-                      "...": "number"
-                      
-                    },
-                    "new_total": "number"
-                  }
-                ]
-              }
-              
-              Non considerare le transazioni con "category: 6".
-              Controlla che se ci sono spese nelle varie categorie, esse non devono avere sconti uguali a 0.
-              La spesa per il compleanno non deve essere 0.
-              Se qualcuna di queste regole viene infrante, ricalcola`
-            }
-          ]
-        })        
-        console.log(completion.choices[0].message.content)
-        let rawResponse = completion.choices[0].message.content;
-        setPrediction(rawResponse.replace(/```json|```/g, ''));
-        // Assicurati che il contenuto sia un JSON valido
-        const jsonResponse = completion.choices[0].message.content;
+        // Dopo aver calcolato saldo e spesePerCategoria
+        fetchPredictions(spesePerCategoria, saldo); // Chiamata alla nuova route API
 
       } catch (error) {
         console.error("Error:", error);
         setError('C\'è stato un errore nel recupero delle transazioni.');
-      } finally {
-        setLoading(false);
-      }
+      } 
     };
 
     fetchTransactions();
@@ -126,7 +94,7 @@ const Predizioni = () => {
             {/* Parsing del JSON e visualizzazione formattata */}
             {(() => {
               try {
-                const data = JSON.parse(prediction);
+                const data = JSON.parse(prediction.replace(/```json|```/g, ''));
                 return (
                   <>
                     <div className="bg-white/10 rounded-lg p-6 backdrop-blur-sm">
