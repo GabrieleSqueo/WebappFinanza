@@ -75,7 +75,7 @@ const UserTransactions = () => {
       </h1>
 
       {transactions.length === 0 ? (
-        <p>No transactions found for this user.</p>
+        <p className="text-white mx-auto">Non hai ancora inserito delle transazioni</p>
       ) : (
         <table className="min-w-full table-auto bg-white border shadow-lg shadow-blue-500  rounded ">
           <thead>

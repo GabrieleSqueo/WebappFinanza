@@ -16,7 +16,7 @@ const Graphs = ({ transactions }) => {
             <LineCharts transactions={transactions}/>
             <BarCharts transactions={transactions}/>
         </div>  
-      : <p className="mx-auto">Non hai ancora inserito transazioni</p>
+      : <p className="mx-auto text-white">Non hai ancora inserito transazioni</p>
       }
       
     </div>
