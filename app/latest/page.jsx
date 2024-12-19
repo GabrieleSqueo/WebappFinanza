@@ -65,7 +65,7 @@ const Latest = () => {
     fetchTransactions();
   }, [data]);
 
-  if (loading) return <p>Loading transactions...</p>;
+  if (loading) return <div className="flex min-h-screen bg-gradient-to-r from-sky-700 to-70% to-indigo-800"><p className="mx-auto my-auto text-white text-xl">Caricamento...</p></div>;
 
   return (
     <main className='flex flex-col bg-gradient-to-r from-[#0077b6] to-blue-500 min-h-screen '>
